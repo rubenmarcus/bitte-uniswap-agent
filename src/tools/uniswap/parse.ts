@@ -24,7 +24,7 @@ export async function parseQuoteRequest(
   req: Request,
   tokenMap: BlockchainMapping,
   zerionKey?: string,
-): Promise<ParsedQuoteRequest> {
+): Promise<ParsedQuoteRequest | undefined> {
   // TODO - Add Type Guard on Request (to determine better if it needs processing below.)
   const requestBody = req.body;
   console.log("Raw Request Body:", requestBody);
@@ -47,15 +47,19 @@ export async function parseQuoteRequest(
   ]);
   const sellTokenData = sellTokenAvailable(balances, sellToken);
 
-  return {
-    chainId,
-    quoteRequest: {
-      sellToken: sellTokenData.address,
-      buyToken: buyTokenData.address,
-      amount: parseUnits(sellAmount, sellTokenData.decimals),
-      walletAddress: sender,
-    },
-  };
+  if (buyTokenData) {
+    return {
+      chainId,
+      quoteRequest: {
+        sellToken: sellTokenData.address,
+        buyToken: buyTokenData.address,
+        amount: parseUnits(sellAmount, sellTokenData.decimals),
+        walletAddress: sender,
+      },
+    };
+  }
+
+  return;
 }
 
 function sellTokenAvailable(
