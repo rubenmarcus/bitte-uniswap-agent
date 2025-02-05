@@ -5,8 +5,6 @@ import swaggerUi from "swagger-ui-express";
 import { healthRouter } from "./routes/health";
 import { uniswapRouter } from "./routes/uniswap";
 import { pluginData } from "./plugin";
-import path from "path";
-import { fileURLToPath } from "url";
 
 config(); // Load .env file
 
