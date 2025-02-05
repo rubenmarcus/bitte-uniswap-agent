@@ -1,25 +1,23 @@
-import { pathsToModuleNameMapper } from 'ts-jest';
-import { compilerOptions } from './tsconfig.json';
+import { pathsToModuleNameMapper } from "ts-jest";
+import { compilerOptions } from "./tsconfig.json";
 
 const jestConfig = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
+  preset: "ts-jest",
+  testEnvironment: "node",
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json', useESM: true }],
-    '^.+\\.jsx?$': 'babel-jest',
+    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.json", useESM: true }],
+    "^.+\\.jsx?$": "babel-jest",
   },
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, {
-      prefix: '<rootDir>/',
+      prefix: "<rootDir>/",
     }),
-    '^(\\.{1,2}/.*)\\.js$': '$1',
+    "^(\\.{1,2}/.*)\\.js$": "$1",
   },
-  setupFiles: ['dotenv/config'],
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(@bitte-ai/agent-sdk)/)',
-  ],
+  setupFiles: ["dotenv/config"],
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
+  transformIgnorePatterns: ["node_modules/(?!(@bitte-ai/agent-sdk)/)"],
 };
 
 export default jestConfig;
